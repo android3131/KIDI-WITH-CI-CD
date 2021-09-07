@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import jdk.jfr.Category;
+
 @Document
 public class Course {
 	
@@ -85,12 +87,26 @@ public class Course {
 		this.zoomMeetingLink = zoomMeetingLink;
 		this.day = day;
 		this.leadersIDs= new ArrayList<String>();
-		 kidsIDs= new ArrayList<String>();
-		 meetings= new ArrayList<String>();
+		this.kidsIDs= new ArrayList<String>();
+		this.meetings= new ArrayList<String>();
 		this.startHour = startHour;;
 		this.status = Status.Active;
 		//this.meetingDuration calculate the duration of the meeting
 		this.endHour = endHour;
+	}
+
+
+
+	public Course(String name, Date startDate, Date finishDate, String day, String categoryId) {
+		this.name = name;
+		this.startDateTime = startDate;
+		this.finishDateTime = finishDate;
+		this.categoryId = categoryId;
+		this.day = day;
+		this.leadersIDs= new ArrayList<String>();
+		this.kidsIDs= new ArrayList<String>();
+		this.meetings= new ArrayList<String>();
+		this.status = Status.Active;
 	}
 
 
