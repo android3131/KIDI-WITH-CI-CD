@@ -95,47 +95,47 @@ public class HomeLoggedInController {
 //		}
 		
 
-// @PostMapping("/initializeparent")
-// public List<Parent> initializeDB(){
-// 	long DAY_IN_MS = 1000 * 60 * 60 * 24;
-// 	String[] categories = {"space","art","music","science","poetry"};
-// 	Parent parent = parentRepository.addNewParent(new Parent("reem","","",""));
-// 	parentRepository.addNewKid(parent.getId(), new Kid("mutlaq",new Date(),Gender.Girl));
-// 	parentRepository.addNewKid(parent.getId(), new Kid("hijazi",new Date(),Gender.Girl));
-// 	List<Kid> parentKids = parentRepository.GetAllKidsOfParent(parent.getId());
-// 	for(String categ: categories) {
-// 		categoryRepo.addANewCategory(new Category(categ,"")); // create new category
-// 	}
-// 	List<Category> allCateg = categoryRepo.getAllCategories();
-// 			courseRepository.addANewCourse(new Course("123",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
-// 			courseRepository.addANewCourse(new Course("124",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
-// 			courseRepository.addANewCourse(new Course("125",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
-// 			courseRepository.addANewCourse(new Course("125",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
-// 			courseRepository.addANewCourse(new Course("126",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
+@PostMapping("/initializeparent")
+public List<Parent> initializeDB(){
+	long DAY_IN_MS = 1000 * 60 * 60 * 24;
+	String[] categories = {"space","art","music","science","poetry"};
+	Parent parent = parentRepository.addNewParent(new Parent("reem","","",""));
+	parentRepository.addNewKid(parent.getId(), new Kid("mutlaq",new Date(),Gender.Girl));
+	parentRepository.addNewKid(parent.getId(), new Kid("hijazi",new Date(),Gender.Girl));
+	List<Kid> parentKids = parentRepository.GetAllKidsOfParent(parent.getId());
+	for(String categ: categories) {
+		categoryRepo.addANewCategory(new Category(categ,"")); // create new category
+	}
+	List<Category> allCateg = categoryRepo.getAllCategories();
+			courseRepository.addANewCourse(new Course("123",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
+			courseRepository.addANewCourse(new Course("124",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
+			courseRepository.addANewCourse(new Course("125",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
+			courseRepository.addANewCourse(new Course("125",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
+			courseRepository.addANewCourse(new Course("126",new Date(),new Date(),"Monday",(allCateg.get(new Random().nextInt(allCateg.size()))).getId()));
 
 			
-// 			Date random_date = new Date();
-// 			List<Meeting> meetingList = new ArrayList<Meeting>();
-// 			for(Course course: courseRepository.getAllCourses()) {
-// 				random_date = new Date((new Date()).getTime() + ((int)Math.floor(Math.random()*(365)+1))*DAY_IN_MS);
-// 				random_date = new Date(random_date.getTime() - ((int)Math.floor(Math.random()*(35)+1))*DAY_IN_MS);
-// 				meetingList = meetingRepository.addANewMeeting(new Meeting(course.getID(),random_date));
-// 			}
-// 			for(Course course: courseRepository.getAllCourses()) {
-// 				random_date = new Date((new Date()).getTime() - ((int)Math.floor(Math.random()*(365)+1))*DAY_IN_MS);
-// 				random_date = new Date(random_date.getTime() - ((int)Math.floor(Math.random()*(35)+1))*DAY_IN_MS);
-// 				meetingList = meetingRepository.addANewMeeting(new Meeting(course.getID(),random_date));
-// 			}
+			Date random_date = new Date();
+			List<Meeting> meetingList = new ArrayList<Meeting>();
+			for(Course course: courseRepository.getAllCourses()) {
+				random_date = new Date((new Date()).getTime() + ((int)Math.floor(Math.random()*(365)+1))*DAY_IN_MS);
+				random_date = new Date(random_date.getTime() - ((int)Math.floor(Math.random()*(35)+1))*DAY_IN_MS);
+				meetingList = meetingRepository.addANewMeeting(new Meeting(course.getID(),random_date));
+			}
+			for(Course course: courseRepository.getAllCourses()) {
+				random_date = new Date((new Date()).getTime() - ((int)Math.floor(Math.random()*(365)+1))*DAY_IN_MS);
+				random_date = new Date(random_date.getTime() - ((int)Math.floor(Math.random()*(35)+1))*DAY_IN_MS);
+				meetingList = meetingRepository.addANewMeeting(new Meeting(course.getID(),random_date));
+			}
 
-// 			List<Course> allCourses = courseRepository.getAllCourses();
+			List<Course> allCourses = courseRepository.getAllCourses();
 
-// 			for(Kid kid: parentKids) {
-// 				kidRepo.addCourseToKid(kid.getId(),(allCourses.get(new Random().nextInt(allCourses.size()))).getID());
-// 				kidRepo.addCourseToKid(kid.getId(),(allCourses.get(new Random().nextInt(allCourses.size()))).getID());
-// 			}
+			for(Kid kid: parentKids) {
+				kidRepo.addCourseToKid(kid.getId(),(allCourses.get(new Random().nextInt(allCourses.size()))).getID());
+				kidRepo.addCourseToKid(kid.getId(),(allCourses.get(new Random().nextInt(allCourses.size()))).getID());
+			}
 			
-// 			return parentRepository.getAllParents();
-// 		}
+			return parentRepository.getAllParents();
+		}
 
 
 		
