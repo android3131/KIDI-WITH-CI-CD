@@ -35,6 +35,10 @@ import com.example.demo.MeetingRepository;
 import com.example.demo.Parent;
 import com.example.demo.Parent_repository;
 
+import com.example.demo.Category;
+import com.example.demo.Gender;
+
+
 
 
 @RestController
