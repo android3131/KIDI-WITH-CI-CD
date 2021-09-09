@@ -96,4 +96,10 @@ public class AdminController {
         return categoryRepository.getAllCategories();
     }
 
+
+    @GetMapping("/getAllActiveAdmins")
+    public List<Admin> getAllActiveadmins(){
+    	return adminRepo.getAllActiveadmins();
+    }
+
 }
