@@ -409,4 +409,22 @@ public boolean deleteMeetingFromKid(String kidId, String meetingId) {
 	return false;
 }
 
+
+public TreeMap<Integer,Integer> getKidsCategoryMonth(String categType){
+	HashMap<Integer, Integer> kidsCountByCategoryMonth = new HashMap<Integer,Integer>();
+	for(int i=0;i<12;i++) {
+		kidsCountByCategoryMonth.put(i, 0);
+	}
+	List<Kid> allKids = kidRepo.findAll();
+	for(int i=0;i<60;i++){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(allKids.get(i).getActiveDate());
+		int num_kids = kidsCountByCategoryMonth.get(calendar.get(Calendar.MONTH));
+		String coursecateg = courseRepo.getASpecificCourse(allKids.get(i).getActiveCourses().get(0)).getCategoryId();
+		if(coursecateg.indexOf(categType)==0){
+			num_kids++;
+		}
+		kidsCountByCategoryMonth.put((calendar.get(Calendar.MONTH)), num_kids);			
+	}
+
 }
