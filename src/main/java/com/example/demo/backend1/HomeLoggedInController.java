@@ -296,7 +296,7 @@ public List<Parent> initializeDB(){
 		    
 		    HashMap<String,List> kidsMeetingsLists = new HashMap<String,List>();
 		    kidsMeetingsLists.put("elie1",kids);
-		    kidsMeetingsLists.put("elie1",kidMeeting);
+		    kidsMeetingsLists.put("elie2",kidMeeting);
 		    
 		    
 			
