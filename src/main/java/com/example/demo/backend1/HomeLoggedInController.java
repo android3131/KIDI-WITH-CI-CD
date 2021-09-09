@@ -293,20 +293,16 @@ public List<Parent> initializeDB(){
 		    }
 		    
 		    
-		    List<String> kidMeetingId = new ArrayList<String>();
-		    for(Meeting meet: kidMeeting) {
-		    	kidMeetingId.add(meet.getId());
-		    }
+		
 		    
 //		    HashMap<List<Kid>,List<Meeting>> kidsMeetingsLists = new HashMap<List<Kid>,List<Meeting>>();
 //		    kidsMeetingsLists.put(kids, kidMeeting);
 		    
 		    HashMap<String,List> kidsMeetingsLists = new HashMap<String,List>();
 		    kidsMeetingsLists.put("elie1",kids);
-		    kidsMeetingsLists.put("elie2",kidMeetingId);
+		    kidsMeetingsLists.put("elie2",kidMeeting);
 		    
 		    
-			
 			return kidsMeetingsLists;
 		}
 		
