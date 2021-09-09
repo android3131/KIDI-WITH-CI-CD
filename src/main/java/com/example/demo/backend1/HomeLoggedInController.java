@@ -433,4 +433,12 @@ public List<Parent> initializeDB(){
 			}
 			return kidRepo.getMeetingsByKidId(id);
 		}
+		
+		
+		@GetMapping("getmeetingbyid/{id}")
+		public Meeting getMeetingbYiD(@PathVariable String id){
+			return meetingRepo.getMeetingById(id);
+		}
+		
+		
 	}
