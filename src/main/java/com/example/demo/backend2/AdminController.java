@@ -19,7 +19,6 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/admin")
 public class AdminController {
     @Autowired
     LeaderRepository LeaderRepository;
