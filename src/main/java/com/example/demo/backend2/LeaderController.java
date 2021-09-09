@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -46,6 +47,13 @@ public class LeaderController {
      * @param leader of the course
      * @return the added leader.
      */
+    
+    @GetMapping("/getallleaders")
+    public List<Leader> getAllLeaders(){
+        return ileaderRepository.getAllLeaders();
+    }
+    
+    
     @PostMapping ("/postleader")
     public ResponseEntity<String> addLeader(@RequestBody Leader leader){
         // check for valid input.
