@@ -104,7 +104,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/getAllActiveAdmins/{number}")
+    @GetMapping("/getallactiveadmins/{number}")
     public List<Admin> getAllActiveadmins(@PathVariable int number){
     	System.out.println(number);
     	return adminRepo.getAllActiveadmins();
