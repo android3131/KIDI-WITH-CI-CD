@@ -5,16 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.Admin;
+import com.example.demo.Admin_Repository;
 import com.example.demo.Category;
 import com.example.demo.CategoryRepository;
+import com.example.demo.Course;
 import com.example.demo.CourseRepository;
 import com.example.demo.Leader;
 import com.example.demo.LeaderRepository;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")
