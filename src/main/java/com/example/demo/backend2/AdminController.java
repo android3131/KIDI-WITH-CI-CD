@@ -16,6 +16,8 @@ import com.example.demo.LeaderRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import Admin_Repository adminRepo;
+
 
 @RestController
 @RequestMapping("/api/admin")

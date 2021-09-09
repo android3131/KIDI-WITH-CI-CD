@@ -412,6 +412,10 @@ public TreeMap<Integer,Integer> getKidsCategoryMonth(String categType){
 		}
 		kidsCountByCategoryMonth.put((calendar.get(Calendar.MONTH)), num_kids);			
 	}
+	
+    TreeMap<Integer, Integer> sorted = new TreeMap<>();
+    sorted.putAll(kidsCountByCategoryMonth);
+	return sorted;
 }
 
 
