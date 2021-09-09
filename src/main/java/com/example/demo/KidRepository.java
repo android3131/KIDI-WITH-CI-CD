@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,13 @@ public List<Kid> retrieveAllKids(){
  * @return kid got added, else returns null
  */
 public Kid addNewKid(Kid kid) {
+	List<Kid> kids = kidRepo.findAll();
+	for(Kid k : kids) {
+		if(k.getParentId().equals(kid.getParentId()) && k.getFullName().equals(kid.getFullName()) && k.getStatus().equals(Status.Active)){
+			new ResponseEntity<>("Kid Already Registered", HttpStatus.NOT_ACCEPTABLE);
+			return null;
+		}
+	}
 	kid.setStatus(Status.Active);
 	kid.setActiveDate(new Date());
 	kidRepo.save(kid);
@@ -47,6 +55,13 @@ public Kid addNewKid(Kid kid) {
  * @return a list of all kids
  */
 public List<Kid> addKid(Kid kid){
+	List<Kid> kids = kidRepo.findAll();
+	for(Kid k : kids) {
+		if(k.getParentId().equals(kid.getParentId()) && k.getFullName().equals(kid.getFullName())){
+			new ResponseEntity<>("Kid Already Registered", HttpStatus.NOT_ACCEPTABLE);
+			return null;
+		}
+	}
 	kid.setStatus(Status.Active);
 	kid.setActiveDate(new Date());
 	kidRepo.save(kid);
@@ -352,6 +367,27 @@ public List<Category> getKidNotRegisteredCategories( String kidId){
     }
     return cats;
 }
+public TreeMap<Integer,Integer> getKidsCategoryMonth(String categType){
+	HashMap<Integer, Integer> kidsCountByCategoryMonth = new HashMap<Integer,Integer>();
+	for(int i=0;i<12;i++) {
+		kidsCountByCategoryMonth.put(i, 0);
+	}
+	List<Kid> allKids = kidRepo.findAll();
+	for(int i=0;i<60;i++){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(allKids.get(i).getActiveDate());
+		int num_kids = kidsCountByCategoryMonth.get(calendar.get(Calendar.MONTH));
+		String coursecateg = courseRepo.getASpecificCourse(allKids.get(i).getActiveCourses().get(0)).getCategoryId();
+		if(coursecateg.indexOf(categType)==0){
+			num_kids++;
+		}
+		kidsCountByCategoryMonth.put((calendar.get(Calendar.MONTH)), num_kids);			
+	}
+	
+    TreeMap<Integer, Integer> sorted = new TreeMap<>();
+    sorted.putAll(kidsCountByCategoryMonth);
+	return sorted;
+}
 /**
  * get all the courses that the kid is not currently participate in(active courses), for a specific category
  * @param id of parent, id of kid , id of category
@@ -396,29 +432,6 @@ public List<String> getMeetingsByKidId(String kidId){
 	return null;	
 }
 
-public TreeMap<Integer,Integer> getKidsCategoryMonth(String categType){
-	HashMap<Integer, Integer> kidsCountByCategoryMonth = new HashMap<Integer,Integer>();
-	for(int i=0;i<12;i++) {
-		kidsCountByCategoryMonth.put(i, 0);
-	}
-	List<Kid> allKids = kidRepo.findAll();
-	for(int i=0;i<60;i++){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(allKids.get(i).getActiveDate());
-		int num_kids = kidsCountByCategoryMonth.get(calendar.get(Calendar.MONTH));
-		String coursecateg = courseRepo.getASpecificCourse(allKids.get(i).getActiveCourses().get(0)).getCategoryId();
-		if(coursecateg.indexOf(categType)==0){
-			num_kids++;
-		}
-		kidsCountByCategoryMonth.put((calendar.get(Calendar.MONTH)), num_kids);			
-	}
-	
-    TreeMap<Integer, Integer> sorted = new TreeMap<>();
-    sorted.putAll(kidsCountByCategoryMonth);
-	return sorted;
-}
-
-
 /**
  * delete meeting from kid
  * @param kidId
@@ -435,8 +448,5 @@ public boolean deleteMeetingFromKid(String kidId, String meetingId) {
 	}
 	return false;
 }
-
-
-
 
 }

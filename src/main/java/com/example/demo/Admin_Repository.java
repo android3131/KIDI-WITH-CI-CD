@@ -62,7 +62,7 @@ public class Admin_Repository {
 	 * @return List of all active admin 
 	 */	
 	
-	public List<Admin> getAllActiveadmins (){
+	public List <Admin> getAllActiveadmins (){
 		List <Admin> lstAdmin = new ArrayList<>();
 		for (Admin p : adminRepo.findAll()) {
 			if (p.getStatus().equals(Status.Active))
@@ -128,6 +128,19 @@ public class Admin_Repository {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * S
+	 * @param email
+	 * @return
+	 */
+	public boolean getSpecificAdminbyusername (String email) {
+		Admin admin = findUserByEmail(email);
+		if (admin != null) {
+				return true; 
+		}
+		return false; 
 	}
 
 }
