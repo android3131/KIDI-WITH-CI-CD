@@ -208,7 +208,7 @@ public List<Parent> initializeDB(){
 		// kids[index] is compatible to meetings[index]  such that we can get to every kid's meeting using an index
 		
 		@GetMapping("funwehadgetfinishedkidscoursessorted/{id}")
-		public HashMap<String,List> getAllKidsFinishedCoursesSorted(@PathVariable String id){
+		public HashMap<String,List<?>> getAllKidsFinishedCoursesSorted(@PathVariable String id){
 			HashMap<Kid,List<Meeting>> kidCompletedMeetingSorted = new HashMap<Kid,List<Meeting>>();
 			List<Kid> kidsList  = parentRepository.GetAllKidsOfParent(id);
 			for(Kid kid: kidsList) {
