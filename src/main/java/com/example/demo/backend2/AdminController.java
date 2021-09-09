@@ -16,7 +16,6 @@ import com.example.demo.LeaderRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import Admin_Repository adminRepo;
 
 
 @RestController
@@ -28,6 +27,10 @@ public class AdminController {
     CategoryRepository categoryRepository;
     @Autowired
     CourseRepository courseRepository;
+
+
+    @Autowired
+    Admin_Repository adminRepo;
 
     /**
      * @param categoryID
