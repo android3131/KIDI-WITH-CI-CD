@@ -125,7 +125,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/getAllActiveAdmins")
+    @GetMapping("/getAllAdmins")
     public List<Admin> getAllActiveadmins(){
     	
     	return adminRepo.getAllActiveadmins();
