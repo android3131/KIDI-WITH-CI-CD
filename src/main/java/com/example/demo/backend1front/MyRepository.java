@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.User;
+
 
 
 @Repository
@@ -47,7 +49,7 @@ public List<User> deleteByName(String name) {
 }
 private User findUserByName(String name) {
 	User user = allUsersLst.stream()
-			  .filter(curr -> curr.getUserName().toLowerCase().equals(name.toLowerCase()))
+			  .filter(curr -> curr.getUsername().toLowerCase().equals(name.toLowerCase()))
 			  .findAny()
 			 // .orElse(new Student("NA",-1,"NA"));
 			  .orElse(null);

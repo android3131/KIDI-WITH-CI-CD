@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.backend1front.User;
 
 @Repository
 public class Admin_Repository {
@@ -94,7 +93,7 @@ public class Admin_Repository {
 	 */	
 	
 	public boolean checkAdmin (User user) {
-		Admin admin = findUserByEmail(user.getUserName());
+		Admin admin = findUserByEmail(user.getUsername());
 		if (admin != null) {
 			if (admin.getPassword().equals(user.getPassword()))
 				return true; 
