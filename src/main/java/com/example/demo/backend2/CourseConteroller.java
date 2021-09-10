@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.CategoryRepository;
 import com.example.demo.Course;
@@ -20,6 +21,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
+@RestController
 public class CourseConteroller {
     @Autowired
     ICourseRepository iCourseRepository;
@@ -38,7 +40,7 @@ public class CourseConteroller {
   	 * * @param course
   	 * @return true id added, false if not
   	 */
-  	@PostMapping("/createNewCourse")
+  	@PostMapping("/addnewcourse")
   	public ResponseEntity<String> createCourse(@RequestBody Course course) {
   		String msg = "The course was added successfully";
   		Time tFinish = new Time(course.getFinishDateTime().getTime());
@@ -74,7 +76,7 @@ public class CourseConteroller {
      * */
     @GetMapping("/getCoursesByCategory/{categoryID}")
     public ArrayList<Course> getCoursesByCategory(@PathVariable String categoryID){
-        return leaderRepository.getCoursesByCategoryID(categoryID);
+        return courseRepository.getCategoryCourses(categoryID);
     }
 
     /**
