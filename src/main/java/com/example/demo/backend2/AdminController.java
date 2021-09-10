@@ -127,8 +127,11 @@ public class AdminController {
 
     @GetMapping("/getAllAdmins")
     public List<Admin> getAllActiveadmins(){
-    	
     	return adminRepo.getAllActiveadmins();
+    }
+   @PostMapping("/addAdmin")
+    public void addNewAdmin(Admin admin){
+	   adminRepo.addNewAdmin(admin);
     }
 
 }

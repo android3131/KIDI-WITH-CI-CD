@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -31,7 +32,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 		public Admin(String fullName, String email, String password) {
 			super();
 			this.fullName = fullName;
-			this.email = email;
+			
+			this.email = email.toLowerCase();
 			this.password = password;
 			status = Status.Active;
 			activeDate = new Date();
@@ -41,7 +43,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 			super();
 			this.fullName = fullName;
 			this.phoneNumber = phoneNumber;
-			this.email = email;
+			this.email = email.toLowerCase();
 			this.password = password;
 			this.status = Status.Active;
 			this.activeDate = new Date();
@@ -89,6 +91,24 @@ import org.springframework.data.mongodb.core.mapping.Field;
 		
 		public void setStatus (Status s) {
 			status = s;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(email, id, phoneNumber);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Admin other = (Admin) obj;
+			return Objects.equals(email, other.email) && Objects.equals(id, other.id)
+					&& Objects.equals(phoneNumber, other.phoneNumber);
 		}
 		
 }

@@ -38,6 +38,11 @@ public class Admin_Repository {
 	}
 	
 	public Admin addNewAdmin (Admin admin){
+		List<Admin> admins = getAllActiveadmins();
+		if(admins.contains(admin)) {
+			new ResponseEntity<>("Admin Already exists",HttpStatus.BAD_REQUEST);
+			return null;
+		}
 		admin.setStatus(Status.Active);
 		adminRepo.save(admin); 
 		 new ResponseEntity<>("New admin added", HttpStatus.OK);
