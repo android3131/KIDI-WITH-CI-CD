@@ -76,7 +76,7 @@ public class Course {
 	public Course(String name, Date startDateTime, Date finishDateTime, String categoryId, String zoomMeetingLink,
 			String day, String startHour,String urlLink, String endHour) {
 		super();
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.urlLink = urlLink;
 		this.startDateTime = startDateTime;
 		this.finishDateTime = finishDateTime;
@@ -93,7 +93,7 @@ public class Course {
 	
 	
 	public Course(String name, Date startDate, Date finishDate, String day, String categoryId) {
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.startDateTime = startDate;
 		this.finishDateTime = finishDate;
 		this.categoryId = categoryId;

@@ -43,7 +43,7 @@ public class Parent {
 		super();
 		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
-		this.email = email;
+		this.email = email.toLowerCase();
 		this.password = password;
 		status = Status.Active; 
 		activeDate = new Date(); 
@@ -144,9 +144,11 @@ public class Parent {
 		status = s; 
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, fullName, id, password, phoneNumber);
+		return Objects.hash(email, phoneNumber);
 	}
 
 	@Override
@@ -158,9 +160,7 @@ public class Parent {
 		if (getClass() != obj.getClass())
 			return false;
 		Parent other = (Parent) obj;
-		return Objects.equals(email, other.email) && Objects.equals(fullName, other.fullName)
-				&& Objects.equals(id, other.id) && Objects.equals(password, other.password)
-				&& Objects.equals(phoneNumber, other.phoneNumber);
+		return Objects.equals(email, other.email) && Objects.equals(phoneNumber, other.phoneNumber);
 	}
 
 	@Override

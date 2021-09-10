@@ -42,7 +42,7 @@ public class Kid {
 	}
 	public Kid(String fullName, Date dateOfBirth, Gender gender) {
 		super();
-		this.fullName = fullName;
+		this.fullName = fullName.toLowerCase();
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
 		this.activeDate = new Date();
@@ -164,9 +164,5 @@ public class Kid {
 		return "Kid [fullName=" + fullName + ", dateOfBirth=" + dateOfBirth + ", parentId=" + parentId + "]";
 	}
 	
-	
-	public static void main(String args[]) {
-		Kid kid = new Kid("SSS", new Date(1995, 6, 4),Gender.Boy);
-		System.out.println("mutlaq"+ kid.getActiveDate().toString());
-	}
+
 }

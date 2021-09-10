@@ -3,6 +3,7 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
 
 import org.springframework.data.annotation.Id;
@@ -60,7 +61,7 @@ public class Leader {
 	public Leader(String fullName, String email) {
 		super();
 		this.fullName = fullName;
-		this.email = email;
+		this.email = email.toLowerCase();
 		this.generatedPassowrd = true;
 		this.password = generatePassword();
 		
@@ -69,7 +70,7 @@ public class Leader {
 	public Leader(String fullName, String email, String password) {
 		super();
 		this.fullName = fullName;
-		this.email = email;
+		this.email = email.toLowerCase();
 		this.generatedPassowrd = false;
 		this.password = password;
 		
@@ -79,7 +80,7 @@ public class Leader {
 			String profilePic) {
 		super();
 		this.fullName = fullName;
-		this.email = email;
+		this.email = email.toLowerCase();
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.dateOfBirth = dateOfBirth;
@@ -209,6 +210,23 @@ public class Leader {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, phoneNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Leader other = (Leader) obj;
+		return Objects.equals(email, other.email) && Objects.equals(phoneNumber, other.phoneNumber);
 	}
 
 	@Override
