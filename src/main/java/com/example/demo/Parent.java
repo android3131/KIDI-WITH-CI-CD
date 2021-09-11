@@ -32,11 +32,11 @@ public class Parent {
 	//@Field
 	//private List <Bills> bill;
 	@Field
-	private Date activeDate; //first time login 
+	private String activeDate; //first time login 
 	
 	public Parent() {
 		super();
-		activeDate = new Date(); 
+	//	activeDate = new Date(); 
 	}
 	
 	public Parent(String fullName, String phoneNumber, String email, String password) {
@@ -46,8 +46,9 @@ public class Parent {
 		this.email = email.toLowerCase();
 		this.password = password;
 		status = Status.Active; 
-		activeDate = new Date(); 
+		//activeDate = new Date(); 
 	}
+	
 
 	public String getId() {
 		return id;
@@ -129,17 +130,19 @@ public class Parent {
 		this.bill = bill;
 	}*/
 
-	public Date getActiveDate() {
-		return activeDate;
-	}
-
-	public void setActiveDate(Date activeDate) {
-		this.activeDate = activeDate;
-	}
+	
 	public Status getStatus() {
 		return status; 
 	}
 	
+	public String getActiveDate() {
+		return activeDate;
+	}
+
+	public void setActiveDate(String activeDate) {
+		this.activeDate = activeDate;
+	}
+
 	public void setStatus (Status s) {
 		status = s; 
 	}

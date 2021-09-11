@@ -1,12 +1,15 @@
 package com.example.demo;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -321,8 +324,9 @@ public List<Course> getKidNotRegisteredCoursesByCategory(String parentId, String
 	 * 
 	 * @param period Input: 1- For week 2- For month 3- For year.
 	 * @return hashMap : with two keys: "New Parents": new parents Count, "totalParents": total Parents count, null otherwise 
+	 * @throws ParseException 
 	 */
-	public HashMap<String, Integer> getNewParents(int period){
+	public HashMap<String, Integer> getNewParents(int period) {
 		if(period != 1 && period !=2 && period !=3) {
 			new ResponseEntity<>("Input: 1- For week 2- For month 3- For year.", HttpStatus.NOT_ACCEPTABLE);
 			return null;
@@ -346,7 +350,16 @@ public List<Course> getKidNotRegisteredCoursesByCategory(String parentId, String
 		for( Parent p : parents) {
 			if(p.getStatus().equals(Status.Active)) {
 				totalParents ++;
-				if(p.getActiveDate().after(d)) {
+				 String sDate1=p.getActiveDate();  
+				    Date date1=null;
+					try {
+						date1 = new SimpleDateFormat("yyyy-mm-dd").parse(sDate1);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						System.out.println("parsing date failed");
+						e.printStackTrace();
+					} 
+				if(date1.after(d)) {
 					parentsCount++;
 				}
 			}
