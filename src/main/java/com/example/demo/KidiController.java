@@ -82,6 +82,7 @@ meetingRepo.addANewMeeting(new Meeting("courseId", new Date()));
 	
 	@PostMapping("/AddNewKid")
 	public Kid addNewKid(@RequestBody Kid kid) {
+		System.out.println(kid.getParentId());
 		return kidRepo.addNewKid(kid);
 	}
 	

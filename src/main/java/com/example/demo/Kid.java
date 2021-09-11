@@ -26,7 +26,7 @@ public class Kid {
 	@Field
 	private Status status;
 	@Field
-	private Date activeDate;
+	private String activeDate;
 	@Field
 	private String image;
 	@Field
@@ -40,12 +40,13 @@ public class Kid {
 	public Kid() {
 		
 	}
-	public Kid(String fullName, Date dateOfBirth, Gender gender) {
+	public Kid(String fullName, Date dateOfBirth, Gender gender,String parentId) {
 		super();
 		this.fullName = fullName.toLowerCase();
 		this.dateOfBirth = dateOfBirth;
+		this.parentId=parentId;
 		this.gender = gender;
-		this.activeDate = new Date();
+//		this.activeDate = new Date();
 		this.activeCourses = new ArrayList<String>();
 		this.completedCourses = new ArrayList<String>();
 		this.meetings = new ArrayList<String>();
@@ -102,7 +103,7 @@ public class Kid {
 		this.completedCourses = completedCourses;
 	}
 	public String getParentId() {
-		return parentId;
+		return this.parentId;
 	}
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
@@ -113,13 +114,14 @@ public class Kid {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public Date getActiveDate() {
+
+	
+	public String getActiveDate() {
 		return activeDate;
 	}
-	public void setActiveDate(Date activeDate) {
+	public void setActiveDate(String activeDate) {
 		this.activeDate = activeDate;
 	}
-	
 	public boolean deleteCourse(String courseId) {
 		String newcourseId = courseId.replace(String.valueOf('"'),"");
 		for(String listCourseId: activeCourses) {

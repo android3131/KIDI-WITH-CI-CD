@@ -139,7 +139,7 @@ public class Parent_repository {
 		Optional<Parent> parent = parentRepo.findById(id);
 	if (parent.isPresent()) {
 			kid.setParentId (parent.get().getId());
-			Kid k = kidRepo.addNewKid(kid);
+			Kid k = kidRepo.addNewKid2(kid);
 			parent.get().addKid(k.getId());
 			parentRepo.save(parent.get());
 		}

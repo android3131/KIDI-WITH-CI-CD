@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +25,9 @@ IkidRepository kidRepo;
 CourseRepository courseRepo;
 @Autowired
 CategoryRepository categoryRepo;
+@Autowired
+IParentRepository parentRepo;
+
 long DAY_IN_MS = 1000 * 60 * 60 * 24;
 /**
  *
@@ -37,16 +42,61 @@ public List<Kid> retrieveAllKids(){
  * @return kid got added, else returns null
  */
 public Kid addNewKid(Kid kid) {
+	
 	List<Kid> kids = kidRepo.findAll();
-	for(Kid k : kids) {
-		if(k.getParentId().equals(kid.getParentId()) && k.getFullName().equals(kid.getFullName()) && k.getStatus().equals(Status.Active)){
-			new ResponseEntity<>("Kid Already Registered", HttpStatus.NOT_ACCEPTABLE);
-			return null;
-		}
-	}
+	System.out.println(kid.getParentId()+" "+kid.getFullName());
+//	for(Kid k : kids) {
+//		if(k.getParentId().equals(kid.getParentId()) && k.getFullName().equals(kid.getFullName()) && k.getStatus().equals(Status.Active)){
+//			new ResponseEntity<>("Kid Already Registered", HttpStatus.NOT_ACCEPTABLE);
+//			return null;
+//		}
+//	}
+	Date date1=null;
+	try {
+		date1 = new SimpleDateFormat("yyyy-mm-dd").parse(kid.getActiveDate());
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		System.out.println("parsing date failed");
+		e.printStackTrace();
+	} 
 	kid.setStatus(Status.Active);
-	kid.setActiveDate(new Date());
 	kidRepo.save(kid);
+	
+	Optional<Parent> parent = parentRepo.findById(kid.getParentId());
+	if (parent.isPresent()) {
+			kid.setParentId (parent.get().getId());
+//			Kid k = addNewKid(kid);
+			parent.get().addKid(kid.getId());
+			parentRepo.save(parent.get());
+		}
+	
+	
+	return kid;
+}
+public Kid addNewKid2(Kid kid) {
+	
+	List<Kid> kids = kidRepo.findAll();
+	System.out.println(kid.getParentId()+" "+kid.getFullName());
+//	for(Kid k : kids) {
+//		if(k.getParentId().equals(kid.getParentId()) && k.getFullName().equals(kid.getFullName()) && k.getStatus().equals(Status.Active)){
+//			new ResponseEntity<>("Kid Already Registered", HttpStatus.NOT_ACCEPTABLE);
+//			return null;
+//		}
+//	}
+	Date date1=null;
+	try {
+		date1 = new SimpleDateFormat("yyyy-mm-dd").parse(kid.getActiveDate());
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		System.out.println("parsing date failed");
+		e.printStackTrace();
+	} 
+	kid.setStatus(Status.Active);
+	kidRepo.save(kid);
+	
+
+	
+	
 	return kid;
 }
 /**
@@ -63,7 +113,15 @@ public List<Kid> addKid(Kid kid){
 		}
 	}
 	kid.setStatus(Status.Active);
-	kid.setActiveDate(new Date());
+	Date date1=null;
+	try {
+		date1 = new SimpleDateFormat("yyyy-mm-dd").parse(kid.getActiveDate());
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		System.out.println("parsing date failed");
+		e.printStackTrace();
+	} 
+	//kid.setActiveDate(date1);
 	kidRepo.save(kid);
 	return kidRepo.findAll();
 }
@@ -325,7 +383,16 @@ public HashMap<String, Integer> getNewKids(int period){
 	for( Kid k : kids) {
 		if(  k.getStatus().equals(Status.Active)) {
 			totalKids++;
-			if(k.getActiveDate().after(d)) {
+		    Date date1=null;
+						try {
+							date1 = new SimpleDateFormat("yyyy-mm-dd").parse(k.getActiveDate());
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							System.out.println("parsing date failed");
+							e.printStackTrace();
+						} 
+					
+			if(date1.after(d)) {
 				kidsCount++;
 			}
 		}
@@ -375,7 +442,16 @@ public TreeMap<Integer,Integer> getKidsCategoryMonth(String categType){
 	List<Kid> allKids = kidRepo.findAll();
 	for(int i=0;i<60;i++){
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(allKids.get(i).getActiveDate());
+	    Date date1=null;
+					try {
+						date1 = new SimpleDateFormat("yyyy-mm-dd").parse(allKids.get(i).getActiveDate());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						System.out.println("parsing date failed");
+						e.printStackTrace();
+					} 
+				
+		calendar.setTime(date1);
 		int num_kids = kidsCountByCategoryMonth.get(calendar.get(Calendar.MONTH));
 		String coursecateg = courseRepo.getASpecificCourse(allKids.get(i).getActiveCourses().get(0)).getCategoryId();
 		if(coursecateg.indexOf(categType)==0){
@@ -407,7 +483,7 @@ public List<Course> getKidNotRegisteredCoursesByCategory( String kidId, String c
  * @return
  */
 public List<Kid> createKid(Kid kid) {	
-	kid.setActiveDate(new Date());	
+	//kid.setActiveDate(new Date());	
 	kid.setStatus(Status.Active);
 	kidRepo.save(kid);	
 	return kidRepo.findAll();	
