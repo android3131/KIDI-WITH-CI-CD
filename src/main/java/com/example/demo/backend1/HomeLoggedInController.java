@@ -171,102 +171,110 @@ public class HomeLoggedInController {
 	}
 	
 
-	// kids[index] is compatible to meetings[index]  such that we can get to every kid's meeting using an index
-	/**
-	 * 
-	 * @param id of parent
-	 * @return two lists, first include all kids, second include all finished meetings sorted.
-	 */
-	
-	@GetMapping("funwehadgetfinishedkidscoursessorted/{id}")
-	public HashMap<List<Kid>,List<Meeting>> getAllKidsFinishedCoursesSorted(@PathVariable String id){
-		HashMap<Kid,List<Meeting>> kidCompletedMeetingSorted = new HashMap<Kid,List<Meeting>>();
-		List<Kid> kidsList  = parentRepository.GetAllKidsOfParent(id);
-		for(Kid kid: kidsList) {
-			List<Course> courses = new ArrayList();
-			List<String> temp= kid.getActiveCourses();
-			for(String string: temp)
-			{
-				courses.add(courseRepository.findCourseByID(string));
-			}
-			List<Meeting> meetings= new ArrayList();
-			if(!courses.isEmpty())
-			{
-
-				for(Course course: courses)
-				{
-					List<Meeting> tempMeeting= new ArrayList();
-					tempMeeting=meetingRepository.getAllCourseMeetings(course.getID());
-					if(!tempMeeting.isEmpty())
+	//GET ALL PARENT'S KIDS FINISHED COURSES SORTED
+			// function returns two lists, first include all kids, second include all meetings. 
+			// kids[index] is compatible to meetings[index]  such that we can get to every kid's meeting using an index
+			
+			@GetMapping("funwehadgetfinishedkidscoursessorted/{id}")
+			public ResponseObjHomeLoggedIn getAllKidsFinishedCoursesSorted(@PathVariable String id){
+				HashMap<Kid,List<Meeting>> kidCompletedMeetingSorted = new HashMap<Kid,List<Meeting>>();
+				List<Kid> kidsList  = parentRepository.GetAllKidsOfParent(id);
+				for(Kid kid: kidsList) {
+					List<Course> courses = new ArrayList();
+					List<String> temp= kid.getActiveCourses();
+					for(String string: temp)
 					{
-						for(Meeting meeting: tempMeeting)
+						courses.add(courseRepository.findCourseByID(string));
+					}
+					List<Meeting> meetings= new ArrayList();
+					if(!courses.isEmpty())
+					{
+
+						for(Course course: courses)
 						{
-							if(meeting.getMeetingDateTime().before(new Date())) {
-								meetings.add(meeting);
+							List<Meeting> tempMeeting= new ArrayList();
+							tempMeeting=meetingRepository.getAllCourseMeetings(course.getID());
+							if(!tempMeeting.isEmpty())
+							{
+								for(Meeting meeting: tempMeeting)
+								{
+									if(meeting.getMeetingDateTime().before(new Date())) {
+										meetings.add(meeting);
+									}
+								}
 							}
 						}
 					}
+					kidCompletedMeetingSorted.put(kid, meetings);
 				}
-			}
-			kidCompletedMeetingSorted.put(kid, meetings);
-		}
-		HashMap<String,Meeting> kidCompletedMeeting = new HashMap<String,Meeting>();
-		for(Map.Entry<Kid,List<Meeting>> entry : kidCompletedMeetingSorted.entrySet()) {
-			  Kid kid = entry.getKey();
-			  List<Meeting> value = entry.getValue();
-			  int i=0;
-			  String kid_name = kid.getFullName();
-			  for(Meeting meet: value) {
-				  kidCompletedMeeting.put(kid_name+String.valueOf(i), meet);
-				  i++;
-			  }
-		}
-		
-		List<Map.Entry<String, Meeting>> list = new LinkedList<Map.Entry<String, Meeting>>(kidCompletedMeeting.entrySet());
-	 
+				HashMap<String,Meeting> kidCompletedMeeting = new HashMap<String,Meeting>();
+				for(Map.Entry<Kid,List<Meeting>> entry : kidCompletedMeetingSorted.entrySet()) {
+					  Kid kid = entry.getKey();
+					  List<Meeting> value = entry.getValue();
+					  int i=0;
+					  String kid_name = kid.getFullName();
+					  for(Meeting meet: value) {
+						  kidCompletedMeeting.put(kid_name+String.valueOf(i), meet);
+						  i++;
+					  }
+				}
+				
+				List<Map.Entry<String, Meeting>> list = new LinkedList<Map.Entry<String, Meeting>>(kidCompletedMeeting.entrySet());
+			 
 
-	    Collections.sort(list, new Comparator<Map.Entry<String, Meeting>>() {
-	    	public int compare(Map.Entry<String, Meeting> o1,
-	                   		Map.Entry<String, Meeting> o2)
-	        {
-	    		return (o1.getValue()).compareTo(o2.getValue());
-	        }
-	   });
-	         
-	        
-	    HashMap<String, Meeting> temp = new LinkedHashMap<String, Meeting>();
-	    for (Map.Entry<String, Meeting> aa : list) {
-	    	temp.put(aa.getKey(), aa.getValue());
-	    }
-	    
-	    List<String> kidName = new ArrayList<String>();
-	    List<Meeting> kidMeeting = new ArrayList<Meeting>();
-	    Iterator hmIterator = temp.entrySet().iterator();
-	    while (hmIterator.hasNext()) {
-            Map.Entry mapElement = (Map.Entry)hmIterator.next();
-            kidName.add(mapElement.getKey().toString());
-            kidMeeting.add((Meeting)mapElement.getValue());
-        }
-	    
-	    List<String> kidNameModified = new ArrayList<String>();
-	    for(String name: kidName) {
-	    	name = name.replaceAll("\\d","");
-	    	kidNameModified.add(name);
-	    }
-	    
-	    List<Kid> kids = new ArrayList<Kid>();
-	    for(String name: kidNameModified) {
-	    	for(Kid parentKid: kidsList) {
-	    		if(parentKid.getFullName().equals(name)) {
-	    			kids.add(parentKid);
-	    		}
-	    	}
-	    }
-	    HashMap<List<Kid>,List<Meeting>> kidsMeetingsLists = new HashMap<List<Kid>,List<Meeting>>();
-	    kidsMeetingsLists.put(kids, kidMeeting);
-		
-		return kidsMeetingsLists;
-	}
+			    Collections.sort(list, new Comparator<Map.Entry<String, Meeting>>() {
+			    	public int compare(Map.Entry<String, Meeting> o1,
+			                   		Map.Entry<String, Meeting> o2)
+			        {
+			    		return (o1.getValue()).compareTo(o2.getValue());
+			        }
+			   });
+			         
+			        
+			    HashMap<String, Meeting> temp = new LinkedHashMap<String, Meeting>();
+			    for (Map.Entry<String, Meeting> aa : list) {
+			    	temp.put(aa.getKey(), aa.getValue());
+			    }
+			    
+			    List<String> kidName = new ArrayList<String>();
+			    List<Meeting> kidMeeting = new ArrayList<Meeting>();
+			    Iterator hmIterator = temp.entrySet().iterator();
+			    while (hmIterator.hasNext()) {
+		            Map.Entry mapElement = (Map.Entry)hmIterator.next();
+		            kidName.add(mapElement.getKey().toString());
+		            kidMeeting.add((Meeting)mapElement.getValue());
+		        }
+			    
+			    List<String> kidNameModified = new ArrayList<String>();
+			    for(String name: kidName) {
+			    	name = name.replaceAll("\\d","");
+			    	kidNameModified.add(name);
+			    }
+			    
+			    List<Kid> kids = new ArrayList<Kid>();
+			    for(String name: kidNameModified) {
+			    	for(Kid parentKid: kidsList) {
+			    		if(parentKid.getFullName().equals(name)) {
+			    			kids.add(parentKid);
+			    		}
+			    	}
+			    }
+			    
+			    
+			
+			    
+//			    HashMap<List<Kid>,List<Meeting>> kidsMeetingsLists = new HashMap<List<Kid>,List<Meeting>>();
+//			    kidsMeetingsLists.put(kids, kidMeeting);
+			    
+			    ResponseObjHomeLoggedIn responseObj = new ResponseObjHomeLoggedIn(kids,kidMeeting);
+			    
+//			    HashMap<String,List> kidsMeetingsLists = new HashMap<String,List>();
+//			    kidsMeetingsLists.put("elie1",kids);
+//			    kidsMeetingsLists.put("elie2",kidMeeting);
+			    
+			    
+				return responseObj;
+			}
 	
 	
 	
