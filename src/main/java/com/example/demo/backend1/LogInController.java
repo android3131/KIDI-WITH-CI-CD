@@ -73,14 +73,14 @@ public class LogInController {
 		}
 		if(leaderRepo.getSpecificLeader(user.getUsername().toLowerCase(),user.getPassword())!=null) {
 			if((leaderRepo.getSpecificLeader(user.getUsername().toLowerCase(),user.getPassword()).getGeneratedPassword())) {	//generated password is true -> in android change password to continue
-				id = (leaderRepo.getSpecificLeader(user.getUsername().toLowerCase(),user.getPassword())).getId();
+				id = (leaderRepo.getSpecificLeader(user.getUsername().toLowerCase(),user.getPassword())).getID();
 				System.out.print(id);
 				hash.put("ID", id);
 				hash.put("flag","2" );
 				return hash;
 			}
 			else {
-				id = (leaderRepo.getSpecificLeader(user.getUsername().toLowerCase(),user.getPassword())).getId();
+				id = (leaderRepo.getSpecificLeader(user.getUsername().toLowerCase(),user.getPassword())).getID();
 				System.out.print(id);
 				hash.put("ID", id);
 				hash.put("flag","3" );

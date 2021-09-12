@@ -80,7 +80,10 @@ import com.example.demo.MeetingRepository;
 		@GetMapping("getnumberactivecourses/{kidid}")
 		public int getNumberActiveCourses(@PathVariable String kidid)
 		{
-			return getAllActiveCoursesOfKid(kidid).size();
+			Kid kid= kidRepo.getKidWithId(kidid);
+			List<Meeting> meetings= new ArrayList();
+			meetings= getAllKidsActiveCoursesSorted(kid.getId());
+			return meetings.size();
 		}
 		
 		//get number completed courses
@@ -88,7 +91,9 @@ import com.example.demo.MeetingRepository;
 		public int getNumberCompetedCourses(@PathVariable String kidid)
 		{
 			Kid kid= kidRepo.getKidWithId(kidid);
-			return kid.getCompletedCourses().size();
+			List<Meeting> meetings= new ArrayList();
+			meetings= getAllKidsCompletedCoursesSorted(kid.getId());
+			return meetings.size();
 		}
 		
 		

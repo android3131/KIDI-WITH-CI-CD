@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/leaders")
+//@RequestMapping("/api/leaders")
 public class LeaderController {
 
     @Autowired
@@ -138,5 +138,9 @@ public class LeaderController {
     public Optional<Leader> findLeaderByID(@PathVariable String id){
         return ileaderRepository.getASpecificLeader(id);
     }
+    @GetMapping("/getAllLeaders")
+    public List<Leader> getAllLeaders(){
+        return ileaderRepository.getAllLeaders();
+        }
 
 }
