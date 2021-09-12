@@ -59,8 +59,8 @@ public class HomeLoggedInController {
 		long DAY_IN_MS = 1000 * 60 * 60 * 24;
 		String[] categories = {"space","art","music","science","poetry"};
 		Parent parent = parentRepository.addNewParent(new Parent("reem","","",""));
-		parentRepository.addNewKid(parent.getId(), new Kid("mutlaq",new Date(),Gender.Girl));
-		parentRepository.addNewKid(parent.getId(), new Kid("hijazi",new Date(),Gender.Girl));
+	//	parentRepository.addNewKid(parent.getId(), new Kid("mutlaq",new Date(),Gender.Girl));
+	//	parentRepository.addNewKid(parent.getId(), new Kid("hijazi",new Date(),Gender.Girl));
 		List<Kid> parentKids = parentRepository.GetAllKidsOfParent(parent.getId());
 		for(String categ: categories) {
 			categoryRepo.addANewCategory(new Category(categ,"")); // create new category

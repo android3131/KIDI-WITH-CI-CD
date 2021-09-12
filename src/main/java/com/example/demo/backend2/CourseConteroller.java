@@ -88,7 +88,7 @@ public class CourseConteroller {
 
         if(name==null)
             return new ResponseEntity<Course>((Course) null, HttpStatus.NOT_ACCEPTABLE);
-
+        name = name.toLowerCase();
         Course my_Course = courseRepository.getASpecificCourseByName(name);
         if(my_Course== null)
             return new ResponseEntity<Course>((Course) null, HttpStatus.NOT_FOUND);

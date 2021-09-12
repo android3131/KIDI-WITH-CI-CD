@@ -111,4 +111,23 @@ import com.example.demo.MeetingRepository;
 			Collections.sort(meetings);
 			return meetings;
 		}
+		
+		
+		//GET all Completed courses SORTED
+				@GetMapping("getlistofkidscompletedcoursessortedkid/{id}")
+				public List<Meeting> getAllKidsCompletedCoursesSorted(@PathVariable String id){
+					List<Meeting> meetings= new ArrayList();
+					List<String> courses= new ArrayList();
+					courses= kidRepo.getKidCompletedCourses(id);
+					for(String courseid : courses)
+					{
+						List<Meeting> allCoursesMeetings=meetingRepo.getAllCourseMeetings(courseid);
+						for(Meeting meeting: allCoursesMeetings)
+						{
+							meetings.add(meeting);
+						}
+					}
+					Collections.sort(meetings);
+					return meetings;
+				}
 	}

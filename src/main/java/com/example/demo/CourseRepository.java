@@ -25,7 +25,8 @@ public class CourseRepository {
 
 	@Autowired
 	ILeaderRepository leaderRepository;
-
+	@Autowired
+	IkidRepository kidRepo;
 
 	/**
 	 * Find a course by ID
@@ -50,9 +51,33 @@ public class CourseRepository {
 				if (c.getName().equals(course.getName()))
 					return CourseRepository.findAll();
 			}
-			CourseRepository.save(course);
+			courseUpsert(course);
 		}
 		return CourseRepository.findAll();
+	}
+	
+	/**
+	 * Update Course
+	 * 
+	 * @param Course 
+	 * @return All courses
+	 */
+	public List<Course> updateCourse(Course course) {
+		Optional<Category> coursecategory = categoryRepository.findById(course.getCategoryId());
+		if (coursecategory.isPresent()) {
+			courseUpsert(course);
+		}
+		return CourseRepository.findAll();
+	}
+	
+	/**
+	 * Update or add Course. Called from the updateCourse and addANewCourse
+	 * 
+	 * @param Course 
+	 * @return list of course
+	 */
+	public void courseUpsert(Course course) {
+		CourseRepository.save(course);
 	}
 	
 	public ArrayList<String> getCourseLeadersByName(String courseName) {

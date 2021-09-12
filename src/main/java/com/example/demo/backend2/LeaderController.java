@@ -122,7 +122,7 @@ public class LeaderController {
     public Object getLeaderByFullName(@PathVariable String fullName) {
             if(fullName==null)
                 return new ResponseEntity<Leader>((Leader) null, HttpStatus.NOT_ACCEPTABLE);
-
+            fullName = fullName.toLowerCase();
 		    ArrayList<Leader> my_lst = ileaderRepository.getLeadersByUserName(fullName);
 		    if(my_lst.isEmpty())
                 return new ResponseEntity<Leader>((Leader) null, HttpStatus.NOT_FOUND);

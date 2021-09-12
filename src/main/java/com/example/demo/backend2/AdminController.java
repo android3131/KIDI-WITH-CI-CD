@@ -96,7 +96,7 @@ public class AdminController {
     public Object getLeadersByCourseName(@PathVariable String courseName) {
         if(courseName==null)
             return new ResponseEntity<Leader>((Leader) null, HttpStatus.NOT_ACCEPTABLE);
-
+        courseName = courseName.toLowerCase();
         ArrayList<String> my_leaders = courseRepository.getCourseLeadersByName(courseName);
         if(my_leaders.isEmpty())
             return new ResponseEntity<Leader>((Leader) null, HttpStatus.NOT_FOUND);

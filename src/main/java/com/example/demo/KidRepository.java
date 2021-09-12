@@ -93,12 +93,11 @@ public Kid addNewKid2(Kid kid) {
 	} 
 	kid.setStatus(Status.Active);
 	kidRepo.save(kid);
-	
-
-	
-	
 	return kid;
 }
+
+
+
 /**
  *
  * @param kid to add to the kids list.
@@ -178,15 +177,18 @@ public Kid addProfilePicture(String kidId, String pathToImage) {
 	System.out.println("kid not Found, Couldn't set the Image");
 	return null;
 }
+
+
 /**
- *
- * @param kidId to add Course to his active courses
- * @param courseId to add to kids active courses list
- * @return kid object with course added to active courses.
- */
+*
+* @param kidId to add Course to his active courses
+* @param courseId to add to kids active courses list
+* @return kid object with course added to active courses.
+*/
 public Kid addCourseToKid(String kidId, String courseId) {
 	Optional<Kid> optional = kidRepo.findById(kidId);
-	if(optional.isPresent()) {
+	Course optionalCourse = courseRepo.getASpecificCourse(courseId);
+	if(optional.isPresent() && optionalCourse!=null) {
 		System.out.println("Kid Found, now setting course to his studies.");
 		Kid kid = optional.get();
 		kid.addCourse(courseId);
@@ -202,6 +204,8 @@ public Kid addCourseToKid(String kidId, String courseId) {
 	}
 	return null;
 }
+
+
 /**
  *
  * @param kidId kid to remove course from	
