@@ -280,7 +280,7 @@ public class HomeLoggedInController {
 			    kidsMeetingsList = kidMeeting;
 			    
 			    
-				return kidList;
+				return kids;
 			}
 			
 			
