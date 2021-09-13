@@ -78,5 +78,10 @@ public class ParentProfileController {
 		parentRepo.changeInfo(parent.getId(),parent.getEmail(), parent.getFullName(), parent.getPhoneNumber());
 		new ResponseEntity<>("success",HttpStatus.OK);
 	}
+	@GetMapping("getParentByID/{parentid}")
+	public Parent getParent(String parentID) {
+		return parentRepo.getParentById(parentID);
+	}
+	
 
 }
