@@ -6,12 +6,14 @@ import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.CategoryRepository;
 import com.example.demo.KidRepository;
 import com.example.demo.MeetingRepository;
 import com.example.demo.Parent_repository;
 
+@RestController
 public class StatisticsController {
 
 	@Autowired
