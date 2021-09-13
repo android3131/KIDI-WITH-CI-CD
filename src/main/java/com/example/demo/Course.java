@@ -1,3 +1,317 @@
+//package com.example.demo;
+//
+//import java.util.ArrayList;
+//import java.util.Date;
+//import java.util.Objects;
+//
+//import org.springframework.data.annotation.Id;
+//import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Field;
+//
+//
+//@Document
+//public class Course {
+//	
+//	@Id
+//	private String id;
+//	
+//	@Field
+//	private String name;
+//	
+//	@Field 
+//	private String description;
+//	
+//	@Field
+//	private double price;
+//
+//    @Field
+//	private Date startDateTime;
+//	
+//	@Field 
+//	private Date finishDateTime;
+//	
+//	@Field 
+//	private String categoryId; 
+//	
+//	@Field 
+//	private String categoryName; 
+//	
+//	@Field 
+//	private Status status; 
+//	
+//	@Field
+//	private ArrayList<String> leadersIDs;
+//	
+//	@Field 
+//	private String zoomMeetingLink;
+//	
+//	@Field 
+//	private String urlLink;
+//	
+//	@Field
+//	private ArrayList<String> kidsIDs;
+//	
+//	@Field
+//	private String day;
+//
+//	@Field
+//	private String startHour;
+//	@Field
+//	private String endHour;
+//	@Field
+//	private double meetingDuration;
+//
+//	@Field
+//	private ArrayList<String> meetings;
+//	public Course() {
+//		super();
+//		this.leadersIDs= new ArrayList<String>();
+//		 kidsIDs= new ArrayList<String>();
+//		 meetings= new ArrayList<String>();
+//	}
+//	
+//
+//
+//	public Course(String name, Date startDateTime, Date finishDateTime, String categoryId, String zoomMeetingLink,
+//			String day, String startHour,String urlLink, String endHour) {
+//		super();
+//		this.name = name.toLowerCase();
+//		this.urlLink = urlLink;
+//		this.startDateTime = startDateTime;
+//		this.finishDateTime = finishDateTime;
+//		this.categoryId = categoryId;
+//		this.zoomMeetingLink = zoomMeetingLink;
+//		this.day = day;
+//		this.leadersIDs= new ArrayList<String>();
+//		this.kidsIDs= new ArrayList<String>();
+//		this.meetings= new ArrayList<String>();
+//		this.startHour = startHour;;
+//		this.status = Status.Active;
+//		setMeetingDuration(startHour, endHour);
+//		this.endHour = endHour;
+//	}
+//	
+//	
+//	public Course(String name, Date startDate, Date finishDate, String day, String categoryId) {
+//		this.name = name;
+//		this.startDateTime = startDate;
+//		this.finishDateTime = finishDate;
+//		this.categoryId = categoryId;
+//		this.day = day;
+//		this.leadersIDs= new ArrayList<String>();
+//		this.kidsIDs= new ArrayList<String>();
+//		this.status = Status.Active;
+//		this.meetings= new ArrayList<String>();
+//	}
+//
+//
+//
+//	public boolean addMeeting(String meetingId) {
+//		if(!meetings.contains(meetingId)) {
+//			return this.meetings.add(meetingId);
+//		}
+//		return false;
+//	}
+//
+//	public ArrayList<String> getMeetings() {
+//		return meetings;
+//	}
+//
+//	public void setMeetings(ArrayList<String> meetings) {
+//		this.meetings = meetings;
+//	}
+//
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
+//
+//	public double getPrice() {
+//		return price;
+//	}
+//	
+//	public void setPrice(double price) {
+//		this.price = price;
+//	}
+//
+//	public String getStartHour() {
+//		return startHour;
+//	}
+//
+//	public void setStartHour(String startHour) {
+//		this.startHour = startHour;
+//	}
+//
+//	public String getEndHour() {
+//		return endHour;
+//	}
+//
+//	public void setEndHour(String endHour) {
+//		this.endHour = endHour;
+//	}
+//
+//
+//	public Date getStartDateTime() {
+//		return startDateTime;
+//	}
+//
+//	public void setStartDateTime(Date startDateTime) {
+//		this.startDateTime = startDateTime;
+//	}
+//
+//	public Date getFinishDateTime() {
+//		return finishDateTime;
+//	}
+//
+//	public void setFinishDateTime(Date finishDateTime) {
+//		this.finishDateTime = finishDateTime;
+//	}
+//	
+//
+//
+//	public String getCategoryId() {
+//		return categoryId;
+//	}
+//
+//	public void setCategoryId(String categoryId) {
+//		this.categoryId = categoryId;
+//	}
+//
+//	public ArrayList<String> getLeadersIDs() {
+//		return leadersIDs;
+//	}
+//
+//	public void setLeadersIDs(ArrayList<String> leadersIDs) {
+//		this.leadersIDs = leadersIDs;
+//	}
+//
+//	
+//	public String getCategoryName() {
+//		return categoryName;
+//	}
+//
+//
+//
+//	public void setCategoryName(String categoryName) {
+//		this.categoryName = categoryName;
+//	}
+//
+//
+//
+//	public String getZoomMeetingLink() {
+//		return zoomMeetingLink;
+//	}
+//
+//	public void setZoomMeetingLink(String zoomMeetingLink) {
+//		this.zoomMeetingLink = zoomMeetingLink;
+//	}
+//
+//	public ArrayList<String> getKidsIDs() {
+//		return kidsIDs;
+//	}
+//
+//	public void setKidsIDs(ArrayList<String> kidsIDs) {
+//		this.kidsIDs = kidsIDs;
+//	}
+//
+//	public String getID() {
+//		return id;
+//	}
+//
+//	public void setID(String iD) {
+//		this.id = iD;
+//	}
+//
+//	public void setStatus(Status status) {
+//		this.status = status;
+//	}
+//
+//	public String getUrlLink() {
+//		return urlLink;
+//	}
+//
+//
+//	public void setUrlLink(String urlLink) {
+//		this.urlLink = urlLink;
+//	}
+//
+//
+//	public String getDay() {
+//		return day;
+//	}
+//
+//	public void setDay(String
+//				day) {
+//		this.day = day;
+//	}
+//	public String getDescription() {
+//		return description;
+//	}
+//
+//	public void setDescription(String description) {
+//		this.description = description;
+//	}
+//
+//	public Status getStatus() {
+//		return status;
+//	}
+//	
+//	
+//
+//	public String getId() {
+//		return id;
+//	}
+//
+//
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
+//
+//
+//
+//	public double getMeetingDuration() {
+//		return meetingDuration;
+//	}
+//
+//
+//
+//	public void setMeetingDuration(String startHour, String endHour) {
+//		double hours = Double.valueOf(endHour.substring(0, 2)) - Double.valueOf(startHour.substring(0, 2)) ;
+//		double minutes = Double.valueOf(endHour.substring(3, 5)) - Double.valueOf(startHour.substring(3, 5));
+//		double meetingDuration = hours + minutes/60.0;
+//		this.meetingDuration = meetingDuration;
+//	}
+//
+//
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, categoryId, name);
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Course other = (Course) obj;
+//		return Objects.equals(id, other.id) && Objects.equals(categoryId, other.categoryId)
+//				&& Objects.equals(name, other.name);
+//	}
+//	
+//	
+//	
+//	
+//}
+
+
 package com.example.demo;
 
 import java.util.ArrayList;
@@ -261,15 +575,6 @@ public class Course {
 	
 	
 
-	public String getId() {
-		return id;
-	}
-
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 
 

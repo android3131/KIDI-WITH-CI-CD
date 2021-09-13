@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +52,10 @@ public class HomeLoggedInController {
 	private MeetingRepository meetingRepo;
 	@Autowired 
 	private KidRepository kidRepo;
+	@Field
+	private List<Meeting> kidsMeetingsList;
+	@Field
+	private List<Kid> kidList;
 	
 	// DATABASE
 	
@@ -176,7 +181,7 @@ public class HomeLoggedInController {
 			// kids[index] is compatible to meetings[index]  such that we can get to every kid's meeting using an index
 			
 			@GetMapping("funwehadgetfinishedkidscoursessorted/{id}")
-			public ResponseObjHomeLoggedIn getAllKidsFinishedCoursesSorted(@PathVariable String id){
+			public List<Kid> getAllKidsFinishedCoursesSorted(@PathVariable String id){
 				HashMap<Kid,List<Meeting>> kidCompletedMeetingSorted = new HashMap<Kid,List<Meeting>>();
 				List<Kid> kidsList  = parentRepository.GetAllKidsOfParent(id);
 				for(Kid kid: kidsList) {
@@ -271,11 +276,20 @@ public class HomeLoggedInController {
 //			    HashMap<String,List> kidsMeetingsLists = new HashMap<String,List>();
 //			    kidsMeetingsLists.put("elie1",kids);
 //			    kidsMeetingsLists.put("elie2",kidMeeting);
+			    kidList = kids;
+			    kidsMeetingsList = kidMeeting;
 			    
 			    
-				return responseObj;
+				return kidList;
 			}
-	
+			
+			
+			
+	@GetMapping("funwehadgetfinishedkidscoursessortedmeeting/{id}")
+	public List<Meeting> getAllKidsFinishedCoursesSortedMeeting(@PathVariable String id){
+		return kidsMeetingsList;
+	}
+			
 	
 	
 	// kids[index] is compatible to meetings[index]  such that we can get to every kid's meeting using an index
