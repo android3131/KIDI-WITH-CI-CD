@@ -96,8 +96,12 @@ public class CourseRepository {
 		Optional<Category> coursecategory = categoryRepository.findById(course.getCategoryId());
 		if (coursecategory.isPresent()) {
 			for (Course c : CourseRepository.findAll()) {
-				if (c.getID().equals(course.getID()))
+				if (c.getName().equals(course.getName()) &&
+						c.getCategoryId().equals(course.getCategoryId()) &&
+						c.getStatus().equals(Status.Active)) {
 					return c;
+				}
+					
 			}
 			Calendar calendar = Calendar.getInstance();
 	        calendar.setTime(course.getStartDateTime());
