@@ -25,31 +25,31 @@ public class StatisticsController {
 	@Autowired
 	CategoryRepository categoryRepo;
 	@GetMapping("getactivitiesperweek")
-	public HashMap<String, Double> activitiesWeek(){
-		HashMap<String, Double> toReturn = new HashMap<String,Double>();
+	public HashMap<String, Integer> activitiesWeek(){
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 1;
 		int max = 50;
-		toReturn.put("totalTime", Math.random()*(100)+max);
-		toReturn.put("activityTime", Math.random()*(max-min+1)+min);
+		toReturn.put("totalTime", (int)(Math.random()*(100)+max));
+		toReturn.put("activityTime", (int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	
 	@GetMapping("getactivitiespermonth")
-	public HashMap<String, Double> activitiesMonth(){
-		HashMap<String, Double> toReturn = new HashMap<String,Double>();
+	public HashMap<String, Integer> activitiesMonth(){
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 50;
 		int max = 100;
-		toReturn.put("totalTime",Math.random()*(100)+max);
-		toReturn.put("activityTime", Math.random()*(max-min+1)+min);
+		toReturn.put("totalTime", (int)(Math.random()*(100)+max));
+		toReturn.put("activityTime", (int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	@GetMapping("getactivitiesperyear")
-	public HashMap<String, Double> activitiesYear(){
-		HashMap<String, Double> toReturn = new HashMap<String,Double>();
+	public HashMap<String, Integer> activitiesYear(){
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 100;
 		int max = 200;
-		toReturn.put("totalTime",Math.random()*(100)+max);
-		toReturn.put("activityTime", Math.random()*(max-min+1)+min);
+		toReturn.put("totalTime", (int)(Math.random()*(100)+max));
+		toReturn.put("activityTime", (int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 
