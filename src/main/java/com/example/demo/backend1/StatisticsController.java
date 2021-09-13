@@ -26,47 +26,91 @@ public class StatisticsController {
 	CategoryRepository categoryRepo;
 	@GetMapping("getactivitiesperweek")
 	public HashMap<String, Double> activitiesWeek(){
-		return meetingRepo.getActivityTime(1);
+		HashMap<String, Double> toReturn = new HashMap<String,Double>();
+		int min = 1;
+		int max = 50;
+		toReturn.put("totalTime", Math.random()*(100)+max);
+		toReturn.put("activityTime", Math.random()*(max-min+1)+min);
+		return toReturn;
 	}
 	
 	@GetMapping("getactivitiespermonth")
 	public HashMap<String, Double> activitiesMonth(){
-		return meetingRepo.getActivityTime(2);
+		HashMap<String, Double> toReturn = new HashMap<String,Double>();
+		int min = 50;
+		int max = 100;
+		toReturn.put("totalTime",Math.random()*(100)+max);
+		toReturn.put("activityTime", Math.random()*(max-min+1)+min);
+		return toReturn;
 	}
 	@GetMapping("getactivitiesperyear")
 	public HashMap<String, Double> activitiesYear(){
-		return meetingRepo.getActivityTime(3);	
+		HashMap<String, Double> toReturn = new HashMap<String,Double>();
+		int min = 100;
+		int max = 200;
+		toReturn.put("totalTime",Math.random()*(100)+max);
+		toReturn.put("activityTime", Math.random()*(max-min+1)+min);
+		return toReturn;
 	}
 
 
 	@GetMapping("getlistofactivekidsperweek")
 	public HashMap<String, Integer> activeKidsWeek(){
-		
-		return kidRepo.getNewKids(1);
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 1;
+		int max = 50;
+		toReturn.put("newKids", (int)(Math.random()*(100)+max));
+		toReturn.put("totalKids",(int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 	}
 	
 	@GetMapping("getlistofactivekidspermonth")
 	public HashMap<String, Integer> activeKidsMonth(){
-		return kidRepo.getNewKids(2);
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 50;
+		int max = 100;
+		toReturn.put("newKids", (int)(Math.random()*(100)+max));
+		toReturn.put("totalKids",(int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 	}
 	@GetMapping("getlistofactivekidsperyear")
 	public HashMap<String, Integer> activeKidsYear(){
-		return kidRepo.getNewKids(3);
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 100;
+		int max = 200;
+		toReturn.put("newKids", (int)(Math.random()*(100)+max));
+		toReturn.put("totalKids",(int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 	}
 
 	@GetMapping("getallactiveparentsbyweek")
 	public HashMap<String, Integer> activeParentsWeek(){
-		return parentRepo.getNewParents(1);
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 1;
+		int max = 50;
+		toReturn.put("newParents", (int)(Math.random()*(100)+max));
+		toReturn.put("totalParents",(int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 	}
 	
 	@GetMapping("getallactiveparentsbymonth")
 	public HashMap<String, Integer> activeParentsMonth(){
-		return parentRepo.getNewParents(2);
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 50;
+		int max = 100;
+		toReturn.put("newParents", (int)(Math.random()*(100)+max));
+		toReturn.put("totalParents",(int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 	}
 	
 	@GetMapping("getallactiveparentsbyyear")
 	public HashMap<String, Integer> activeParentsYear(){
-		return parentRepo.getNewParents(3);
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 100;
+		int max = 200;
+		toReturn.put("newParents", (int)(Math.random()*(100)+max));
+		toReturn.put("totalParents",(int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 	}
 	
 	// -------- get active kids in category per week/month/year -------- 	
