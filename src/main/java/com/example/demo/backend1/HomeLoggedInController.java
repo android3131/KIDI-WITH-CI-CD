@@ -262,6 +262,7 @@ public class HomeLoggedInController {
 			    	for(Kid parentKid: kidsList) {
 			    		if(parentKid.getFullName().equals(name)) {
 			    			kids.add(parentKid);
+			    			kidList.add(parentKid);
 			    		}
 			    	}
 			    }
@@ -279,7 +280,7 @@ public class HomeLoggedInController {
 //			    kidsMeetingsLists.put("elie2",kidMeeting);
 			    
 			    
-				return kids;
+				return kidList;
 			}
 			
 			
