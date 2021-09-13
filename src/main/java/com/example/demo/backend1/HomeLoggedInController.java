@@ -53,9 +53,9 @@ public class HomeLoggedInController {
 	@Autowired 
 	private KidRepository kidRepo;
 	@Field
-	private List<Meeting> kidsMeetingsList = new ArrayList<Meeting>();
+	public List<Meeting> kidsMeetingsList = new ArrayList<Meeting>();
 	@Field
-	private List<Kid> kidList = new ArrayList<Kid>();
+	public List<Kid> kidList = new ArrayList<Kid>();
 	
 	// DATABASE
 	
