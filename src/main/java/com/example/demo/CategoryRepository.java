@@ -30,6 +30,10 @@ long DAY_IN_MS = 1000 * 60 * 60 * 24;
  * @return new category added.
  */
 public Category createCategory(Category category) {
+	List<Category> categories = categoryRepo.findAll();
+	if(categories.contains(category)) {
+		return null;
+	}
 	return categoryRepo.save(category);
 }
 
@@ -40,6 +44,10 @@ public Category createCategory(Category category) {
  * @return list of all categories.
  */
 public ArrayList<Category> addCategory(Category category){
+	List<Category> categories = categoryRepo.findAll();
+	if(categories.contains(category)) {
+		return null;
+	}
 	categoryRepo.save(category);
 	return (ArrayList<Category>) categoryRepo.findAll();
 }

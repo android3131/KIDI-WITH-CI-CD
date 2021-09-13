@@ -48,10 +48,22 @@ public class CourseRepository {
 		Optional<Category> coursecategory = categoryRepository.findById(course.getCategoryId());
 		if (coursecategory.isPresent()) {
 			for (Course c : CourseRepository.findAll()) {
-				if (c.getName().equals(course.getName()))
-					return CourseRepository.findAll();
+				if (c.getName().equals(course.getName()) &&
+						c.getCategoryId().equals(course.getCategoryId()) &&
+						c.getStatus().equals(Status.Active)) {
+					return null;
+				}
+					
 			}
-			courseUpsert(course);
+			Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(course.getStartDateTime());
+			for(int i = 0; i < 5; i++) {
+				calendar.add(Calendar.WEEK_OF_YEAR,i);
+				Meeting meeting =  new Meeting(course.getID(), calendar.getTime());
+				meetingRepository.save(meeting);
+				course.addMeeting(meeting.getId());
+			}
+			CourseRepository.save(course);
 		}
 		return CourseRepository.findAll();
 	}
@@ -99,7 +111,7 @@ public class CourseRepository {
 				if (c.getName().equals(course.getName()) &&
 						c.getCategoryId().equals(course.getCategoryId()) &&
 						c.getStatus().equals(Status.Active)) {
-					return c;
+					return null;
 				}
 					
 			}
