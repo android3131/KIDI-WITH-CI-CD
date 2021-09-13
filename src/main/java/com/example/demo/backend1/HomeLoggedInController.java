@@ -53,9 +53,9 @@ public class HomeLoggedInController {
 	@Autowired 
 	private KidRepository kidRepo;
 	@Field
-	private List<Meeting> kidsMeetingsList;
+	private List<Meeting> kidsMeetingsList = new ArrayList<Meeting>();
 	@Field
-	private List<Kid> kidList;
+	private List<Kid> kidList = new ArrayList<Kid>();
 	
 	// DATABASE
 	
@@ -248,6 +248,7 @@ public class HomeLoggedInController {
 		            Map.Entry mapElement = (Map.Entry)hmIterator.next();
 		            kidName.add(mapElement.getKey().toString());
 		            kidMeeting.add((Meeting)mapElement.getValue());
+		            kidsMeetingsList.add((Meeting)mapElement.getValue());
 		        }
 			    
 			    List<String> kidNameModified = new ArrayList<String>();
@@ -271,13 +272,11 @@ public class HomeLoggedInController {
 //			    HashMap<List<Kid>,List<Meeting>> kidsMeetingsLists = new HashMap<List<Kid>,List<Meeting>>();
 //			    kidsMeetingsLists.put(kids, kidMeeting);
 			    
-			    ResponseObjHomeLoggedIn responseObj = new ResponseObjHomeLoggedIn(kids,kidMeeting);
+			    //ResponseObjHomeLoggedIn responseObj = new ResponseObjHomeLoggedIn(kids,kidMeeting);
 			    
 //			    HashMap<String,List> kidsMeetingsLists = new HashMap<String,List>();
 //			    kidsMeetingsLists.put("elie1",kids);
 //			    kidsMeetingsLists.put("elie2",kidMeeting);
-			    kidList = kids;
-			    kidsMeetingsList = kidMeeting;
 			    
 			    
 				return kids;
