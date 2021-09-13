@@ -45,18 +45,16 @@ public class LeaderController {
      * @return the added leader.
      */
     @PostMapping ("/postleader")
-    public List<Leader> addLeader(@RequestBody Leader leader){
-    	ileaderRepository.addANewLeadre(leader);
-//    	if(validate.check_age(leader.getDateOfBirth(), "leader") 
-//    			& validate.check_name(leader.getFullName()) 
-//    			& validate.check_email(leader.getEmail())
-//    			& validate.check_phone(leader.getPhoneNumber())) {
-//    			ileaderRepository.addANewLeadre(leader);
-//    	        return new ResponseEntity<>("data was added successfully",HttpStatus.OK);
-//    	}
-//        
-//        return new ResponseEntity<>("invalid input",HttpStatus.NOT_ACCEPTABLE);
-    	return ileaderRepository.getAllLeaders();
+    public ResponseEntity<String> addLeader(@RequestBody Leader leader){
+    	if(validate.check_age(leader.getDateOfBirth(), "leader") 
+    			& validate.check_name(leader.getFullName()) 
+    			& validate.check_email(leader.getEmail())
+    			& validate.check_phone(leader.getPhoneNumber())) {
+    			ileaderRepository.addANewLeadre(leader);
+    	        return new ResponseEntity<>("data was added successfully",HttpStatus.OK);
+    	}
+        
+        return new ResponseEntity<>("invalid input",HttpStatus.NOT_ACCEPTABLE);
     }
     
     /**
