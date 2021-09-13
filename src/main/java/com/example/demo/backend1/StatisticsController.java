@@ -59,8 +59,8 @@ public class StatisticsController {
 		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 1;
 		int max = 50;
-		toReturn.put("newKids", (int)(Math.random()*(100)+max));
-		toReturn.put("totalKids",(int)(Math.random()*(max-min+1)+min));
+		toReturn.put("totalKids", (int)(Math.random()*(100)+max));
+		toReturn.put("newKids",(int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	
@@ -69,8 +69,8 @@ public class StatisticsController {
 		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 50;
 		int max = 100;
-		toReturn.put("newKids", (int)(Math.random()*(100)+max));
-		toReturn.put("totalKids",(int)(Math.random()*(max-min+1)+min));
+		toReturn.put("totalKids", (int)(Math.random()*(100)+max));
+		toReturn.put("newKids",(int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	@GetMapping("getlistofactivekidsperyear")
@@ -78,8 +78,8 @@ public class StatisticsController {
 		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 100;
 		int max = 200;
-		toReturn.put("newKids", (int)(Math.random()*(100)+max));
-		toReturn.put("totalKids",(int)(Math.random()*(max-min+1)+min));
+		toReturn.put("totalKids", (int)(Math.random()*(100)+max));
+		toReturn.put("newKids",(int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 
@@ -88,8 +88,8 @@ public class StatisticsController {
 		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 1;
 		int max = 50;
-		toReturn.put("newParents", (int)(Math.random()*(100)+max));
-		toReturn.put("totalParents",(int)(Math.random()*(max-min+1)+min));
+		toReturn.put("totalParents", (int)(Math.random()*(100)+max));
+		toReturn.put("newParents",(int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	
@@ -98,8 +98,8 @@ public class StatisticsController {
 		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 50;
 		int max = 100;
-		toReturn.put("newParents", (int)(Math.random()*(100)+max));
-		toReturn.put("totalParents",(int)(Math.random()*(max-min+1)+min));
+		toReturn.put("totalParents", (int)(Math.random()*(100)+max));
+		toReturn.put("newParents",(int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	
@@ -108,8 +108,8 @@ public class StatisticsController {
 		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
 		int min = 100;
 		int max = 200;
-		toReturn.put("newParents", (int)(Math.random()*(100)+max));
-		toReturn.put("totalParents",(int)(Math.random()*(max-min+1)+min));
+		toReturn.put("totalParents", (int)(Math.random()*(100)+max));
+		toReturn.put("newParents",(int)(Math.random()*(max-min+1)+min));
 		return toReturn;
 	}
 	
