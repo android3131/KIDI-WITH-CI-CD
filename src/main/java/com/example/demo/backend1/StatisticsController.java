@@ -115,20 +115,47 @@ public class StatisticsController {
 	
 	// -------- get active kids in category per week/month/year -------- 	
 	@GetMapping("getlistofactivekidspercategoryperweek")	
-	public HashMap<String, Integer> activeKidsCategWeek(){		
-		return categoryRepo.getKidsCountByCategory(1);
+	public HashMap<String, Integer> activeKidsCategWeek(){
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 1;
+		int max = 5;
+		toReturn.put("art", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("music", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("sience", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("animal", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("space", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("poetry", (int)(Math.random()*(max-min+1)+min));
+		return toReturn;
 		}		
 	
 	@GetMapping("getlistofactivekidspercategorypermonth")	
 	public HashMap<String, Integer> activeKidsCategMonth(){		
-		return categoryRepo.getKidsCountByCategory(2);	
-		}		
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 5;
+		int max = 10;
+		toReturn.put("art", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("music", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("sience", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("animal", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("space", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("poetry", (int)(Math.random()*(max-min+1)+min));
+		return toReturn;
+	}		
 	@GetMapping("getlistofactivekidspercategoryperyear")	
 	public HashMap<String, Integer> activeKidsCategYear(){	
-		return categoryRepo.getKidsCountByCategory(3);	
-		}	
+		HashMap<String, Integer> toReturn = new HashMap<String,Integer>();
+		int min = 10;
+		int max = 30;
+		toReturn.put("art", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("music", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("sience", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("animal", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("space", (int)(Math.random()*(max-min+1)+min));
+		toReturn.put("poetry", (int)(Math.random()*(max-min+1)+min));
+		return toReturn;
+	}	
 	@GetMapping("getkidsbycategorymonth/{category}")	
 	public TreeMap<Integer,Integer> kidsByCategoryMonth(@PathVariable String category){	
 		return kidRepo.getKidsCategoryMonth(category);	
-		}
+	}
 }
