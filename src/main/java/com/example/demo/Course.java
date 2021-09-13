@@ -53,14 +53,13 @@ public class Course {
 	
 	@Field
 	private String day;
-	
 
-	
 	@Field
 	private String startHour;
 	@Field
 	private String endHour;
-	
+	@Field
+	private double meetingDuration;
 
 	@Field
 	private ArrayList<String> meetings;
@@ -88,12 +87,13 @@ public class Course {
 		this.meetings= new ArrayList<String>();
 		this.startHour = startHour;;
 		this.status = Status.Active;
+		setMeetingDuration(startHour, endHour);
 		this.endHour = endHour;
 	}
 	
 	
 	public Course(String name, Date startDate, Date finishDate, String day, String categoryId) {
-		this.name = name.toLowerCase();
+		this.name = name;
 		this.startDateTime = startDate;
 		this.finishDateTime = finishDate;
 		this.categoryId = categoryId;
@@ -234,7 +234,6 @@ public class Course {
 	}
 
 
-
 	public void setUrlLink(String urlLink) {
 		this.urlLink = urlLink;
 	}
@@ -259,6 +258,35 @@ public class Course {
 	public Status getStatus() {
 		return status;
 	}
+	
+	
+
+	public String getId() {
+		return id;
+	}
+
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+
+	public double getMeetingDuration() {
+		return meetingDuration;
+	}
+
+
+
+	public void setMeetingDuration(String startHour, String endHour) {
+		double hours = Double.valueOf(endHour.substring(0, 2)) - Double.valueOf(startHour.substring(0, 2)) ;
+		double minutes = Double.valueOf(endHour.substring(3, 5)) - Double.valueOf(startHour.substring(3, 5));
+		double meetingDuration = hours + minutes/60.0;
+		this.meetingDuration = meetingDuration;
+	}
+
+
 
 	@Override
 	public int hashCode() {
