@@ -116,7 +116,7 @@ public class AdminController {
     @GetMapping("/sendEmail")
     public static ResponseEntity<String> sendEmail(){
         try{
-            SendEmailToClient.sendEmail("ahmed.jabareen1@gmail.com");
+            SendEmailToClient.setEmail("ahmed.jabareen1@gmail.com");
             System.out.println("Hello!");
             return new ResponseEntity<String>("mail sent successfully",HttpStatus.OK);
         }catch(Exception e){

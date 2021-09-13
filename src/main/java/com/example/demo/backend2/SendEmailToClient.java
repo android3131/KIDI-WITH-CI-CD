@@ -1,52 +1,56 @@
 package com.example.demo.backend2;
 
-import javax.mail.Authenticator;
+import java.util.Properties;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+public class SendEmailToClient
+{
 
-public class SendEmailToClient {
-
-    public static void sendEmail(String recipient){
-        System.out.println("Sending an Email to client..");
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth","true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host","smtp.google.com");
-        properties.put("mail.smtp.port","587");
+    public static void setEmail(String to){
 
 
-        String myAccount = "ahmedjabareen7@gmail.com";
-        String pwd = "************";
+        // Put sender’s address
+        String from = "MAIL HERE";
+        final String username = "USER NAME HERE";
+        final String password = "PASSWORD HERE";
 
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(myAccount,pwd);
-            }
-        });
-
-        Message message = prepareMessage(session,myAccount,recipient);
-    }
-
-    private static Message prepareMessage(Session session, String myEmail,String recipient) {
-
-        try{
+        String host = "smtp.gmail.com";
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+        session.setDebug(true);
+        try {
+            // Create a default MimeMessage object.
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(myEmail));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Welcome To KIDI Course "+ "CourseName");
-            message.setText("Hey There! \n Welcome to KIDI Course: "+"CourseName");
-            return message;
-        }catch(Exception e){
-            Logger.getLogger(SendEmailToClient.class.getName()).log(Level.SEVERE,null,e);
-            e.printStackTrace();
+            // Set From: header field
+            message.setFrom(new InternetAddress(from));
+            // Set To: header field
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+            // Set Subject: header field
+            message.setSubject("My first message with JavaMail");
+            // Put the content of your message
+            message.setText("Hi there, this is my first message sent with JavaMail");
+            // Send message
+            System.out.println("Sending msg");
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }
