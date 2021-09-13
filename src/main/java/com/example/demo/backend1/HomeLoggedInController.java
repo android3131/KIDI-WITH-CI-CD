@@ -52,10 +52,6 @@ public class HomeLoggedInController {
 	private MeetingRepository meetingRepo;
 	@Autowired 
 	private KidRepository kidRepo;
-	@Field
-	public List<Meeting> kidsMeetingsList = new ArrayList<Meeting>();
-	@Field
-	public List<Kid> kidList = new ArrayList<Kid>();
 	
 	// DATABASE
 	
@@ -181,7 +177,7 @@ public class HomeLoggedInController {
 			// kids[index] is compatible to meetings[index]  such that we can get to every kid's meeting using an index
 			
 			@GetMapping("funwehadgetfinishedkidscoursessorted/{id}")
-			public List<Kid> getAllKidsFinishedCoursesSorted(@PathVariable String id){
+			public ResponseObjHomeLoggedIn getAllKidsFinishedCoursesSorted(@PathVariable String id){
 				HashMap<Kid,List<Meeting>> kidCompletedMeetingSorted = new HashMap<Kid,List<Meeting>>();
 				List<Kid> kidsList  = parentRepository.GetAllKidsOfParent(id);
 				for(Kid kid: kidsList) {
@@ -248,7 +244,6 @@ public class HomeLoggedInController {
 		            Map.Entry mapElement = (Map.Entry)hmIterator.next();
 		            kidName.add(mapElement.getKey().toString());
 		            kidMeeting.add((Meeting)mapElement.getValue());
-		            kidsMeetingsList.add((Meeting)mapElement.getValue());
 		        }
 			    
 			    List<String> kidNameModified = new ArrayList<String>();
@@ -262,7 +257,7 @@ public class HomeLoggedInController {
 			    	for(Kid parentKid: kidsList) {
 			    		if(parentKid.getFullName().equals(name)) {
 			    			kids.add(parentKid);
-			    			kidList.add(parentKid);
+
 			    		}
 			    	}
 			    }
@@ -273,22 +268,16 @@ public class HomeLoggedInController {
 //			    HashMap<List<Kid>,List<Meeting>> kidsMeetingsLists = new HashMap<List<Kid>,List<Meeting>>();
 //			    kidsMeetingsLists.put(kids, kidMeeting);
 			    
-			    //ResponseObjHomeLoggedIn responseObj = new ResponseObjHomeLoggedIn(kids,kidMeeting);
+			    ResponseObjHomeLoggedIn responseObj = new ResponseObjHomeLoggedIn(kids,kidMeeting);
 			    
 //			    HashMap<String,List> kidsMeetingsLists = new HashMap<String,List>();
 //			    kidsMeetingsLists.put("elie1",kids);
 //			    kidsMeetingsLists.put("elie2",kidMeeting);
 			    
 			    
-				return kidList;
+				return responseObj;
 			}
 			
-			
-			
-	@GetMapping("funwehadgetfinishedkidscoursessortedmeeting/{id}")
-	public List<Meeting> getAllKidsFinishedCoursesSortedMeeting(@PathVariable String id){
-		return kidsMeetingsList;
-	}
 			
 	
 	
