@@ -99,16 +99,15 @@ public class RegistrationCoursesControllerGrp3B {
 	 * @return the kid if found, or null
 	 */
 	@PostMapping("/addCourseToChild/{parentId}/{kidId}/{courseId}") 
-	ResponseEntity<String> updateChildsCourses(@PathVariable String parentId, @PathVariable String kidId, @PathVariable String courseId) {
-		if(!parRepository.getAllParents().contains(parRepository.getParentById(parentId)) 
-				|| !kidRepository.getAllKids().contains(kidRepository.getKidWithId(kidId))
-				|| !courseRepository.getAllCourses().contains(courseRepository.getASpecificCourse(courseId))) {
-				
+	public Boolean updateChildsCourses(@PathVariable String parentId, @PathVariable String kidId, @PathVariable String courseId) {
+		if(parRepository.getAllParents().contains(parRepository.getParentById(parentId)) 
+				&& kidRepository.getAllKids().contains(kidRepository.getKidWithId(kidId))
+				&& courseRepository.getAllCourses().contains(courseRepository.getASpecificCourse(courseId))) {
+				System.out.println("yes");
 				parRepository.addKidToCourse(parentId, kidId, courseId);
-				return new ResponseEntity<>("successful", HttpStatus.OK);
-			
+				return true;
 		}
-		return new ResponseEntity<>("failed", HttpStatus.NOT_ACCEPTABLE);
+		return false;
 	}
 
 	
@@ -121,18 +120,8 @@ public class RegistrationCoursesControllerGrp3B {
 	 * @return true id added, false if not
 	 */
 	@PostMapping("/createNewCourse")
-	ResponseEntity<String> createCourse(@RequestBody Course course) {
-		if(courseRepository.getAllCourses().contains(course) 
-				|| !validate.check_course_duration(course.getStartDateTime(), course.getFinishDateTime())
-				|| !validate.check_course_name(course.getName())
-				|| !catRepository.getAllCategories().contains(catRepository.getCategoryById(course.getCategoryId()))
-				|| !validate.check_zoom_link(course.getZoomMeetingLink())) {
-			
-				return new ResponseEntity<>("failed", HttpStatus.NOT_ACCEPTABLE);
-		}
-		courseRepository.addNewCourse(course);
-		return new ResponseEntity<>("successful", HttpStatus.OK);
-		
+	public String createCourse(@RequestBody Course course) {
+		return courseValidations("add", course);
 	}
 	
 	/**
@@ -169,12 +158,12 @@ public class RegistrationCoursesControllerGrp3B {
 	 */
 	//When deleting the course, we are actually just updating the finish date
 	@PutMapping("/deleteCourse/{courseId}")
-	ResponseEntity<String> updateFinishDate(@PathVariable String courseId) {
+	public Boolean updateFinishDate(@PathVariable String courseId) {
 		if(courseRepository.getAllCourses().contains(courseRepository.getASpecificCourse(courseId))) {
-			courseRepository.updateFinishedDateByDelete(courseId);
-			return new ResponseEntity<>("successful", HttpStatus.OK);
+			return courseRepository.updateFinishedDateByDelete(courseId);
+			
 		}
-		return new ResponseEntity<>("failed", HttpStatus.NOT_ACCEPTABLE);
+		return false;
 	}
 	
 	//For screen: Update course
@@ -189,23 +178,48 @@ public class RegistrationCoursesControllerGrp3B {
 		return courseRepository.getASpecificCourse(courseId).getZoomMeetingLink();
 	}
 	
-	/**
-	 * returns the zoom link of a specific course
-	 * * @param course id
-	 * @return zoom link of the course
-	 */
 	@PutMapping("/updateCourse") 
-	ResponseEntity<String> updateCourse(@RequestBody Course course) {
+	public String updateCourse(@RequestBody Course course) {
+		return courseValidations("update", course);
+	}
+	
+	public String courseValidations(String action, Course course) {
+		String msg = "";
+		if (action.equals("add")) {
+			msg = "The course was " + action + "ed successfully";
+		}
+		else {
+			msg = "The course was " + action + "d successfully";
+		}
 		Time tFinish = new Time(course.getFinishDateTime().getTime());
 		Time tStart = new Time(course.getStartDateTime().getTime());
-		if(!(catRepository.getAllCategories().contains(catRepository.getCategoryById(course.getCategoryId())))
-				|| tFinish.before(tStart)
-				|| course.getStartDateTime().after(course.getFinishDateTime())
-				|| course.getStartDateTime().before(new Date())){
-			return new ResponseEntity<>("failed", HttpStatus.NOT_ACCEPTABLE);
+		if (!(catRepository.getAllCategories().contains(catRepository.getCategoryById(course.getCategoryId())))) {
+			msg= "Failed to " + action + ". Category doesn't exist";
+			return msg;
 		}
-		courseRepository.addANewCourse(course);
-		return new ResponseEntity<>("successful", HttpStatus.OK);
+		if(tFinish.before(tStart)) {
+			msg= "Failed to " + action + ". The finish time is before the start time.";
+			return msg;
+		}
+		if(course.getStartDateTime().after(course.getFinishDateTime())) {
+			msg= "Failed to " + action + ". The end date is before the start date.";
+			return msg;
+		}
+		if(course.getStartDateTime().before(new Date()) ) {
+			msg= "Failed to " + action + ". The start date is in the past.";
+			return msg;
+		}
+		if (action.equals("add")) {
+			courseRepository.addANewCourse(course);
+		}
+		else {
+			courseRepository.updateCourse(course);
+		}
+		if (!courseRepository.getAllCourses().contains(course)) {
+			msg= "Failed to " + action + ". The course name already exists";
+			return msg;
+		}
+		return msg;
 	}
 	
 }
