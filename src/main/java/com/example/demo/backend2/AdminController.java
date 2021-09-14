@@ -113,15 +113,14 @@ public class AdminController {
     }
 
 
-    @GetMapping("/sendEmail")
-    public static ResponseEntity<String> sendEmail(){
+    @GetMapping("/sendEmail/{func}/{user_mail}")
+    public static ResponseEntity<String> sendEmail(@PathVariable String func, @PathVariable String user_mail){
         try{
-            SendEmailToClient.setEmail("ahmed.jabareen1@gmail.com");
-            System.out.println("Hello!");
+            SendEmailToClient.setEmail(func,user_mail);
             return new ResponseEntity<String>("mail sent successfully",HttpStatus.OK);
         }catch(Exception e){
-            System.out.println("Error! :(");
-            return new ResponseEntity<String>("and error has occured",HttpStatus.BAD_GATEWAY);
+            e.printStackTrace();
+            return new ResponseEntity<String>("an error has occurred",HttpStatus.BAD_GATEWAY);
         }
     }
 
