@@ -11,13 +11,13 @@ import javax.mail.internet.MimeMessage;
 public class SendEmailToClient
 {
 
-    public static void setEmail(String to){
+    public static void setEmail(String func,String to){
 
 
         // Put sender’s address
-        String from = "MAIL HERE";
-        final String username = "USER NAME HERE";
-        final String password = "PASSWORD HERE";
+        String from = "ahmedjabareen7@gmail.com";
+        final String username = "ahmedjabareen7@gmail.com";
+        final String password = "bg5f.u2XaRHFp7U";
 
         String host = "smtp.gmail.com";
         Properties props = new Properties();
@@ -42,9 +42,31 @@ public class SendEmailToClient
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
             // Set Subject: header field
-            message.setSubject("My first message with JavaMail");
-            // Put the content of your message
-            message.setText("Hi there, this is my first message sent with JavaMail");
+            int cond = 0;
+            if(func.equals("resetMail"))
+                cond = 1;
+            if (func.equals("forthReg"))
+                cond = 2;
+            switch(cond) {
+                case 0:
+                    message.setSubject("Test mail from KIDI");
+                    // Put the content of your message
+                    message.setText("Hi there, this is a test mail from KIDI");
+                    break;
+                case 1:
+                    message.setSubject("Your new Kidi Password");
+                    // Put the content of your message
+                    message.setText("You have requested to change your password \n your new " +
+                            "password is: "+null+" "+"\n In case it was not you, please contact the administrator");
+                    break;
+
+                case 2:
+                    message.setSubject("Welcome to KIDI");
+                    // Put the content of your message
+                    message.setText("Thank you for joining KIDI");
+
+            }
+
             // Send message
             System.out.println("Sending msg");
             Transport.send(message);
