@@ -192,12 +192,12 @@ public Kid addCourseToKid(String kidId, String courseId) {
 		System.out.println("Kid Found, now setting course to his studies.");
 		Kid kid = optional.get();
 		kid.addCourse(courseId);
-		for(Meeting meet: meetingRepo.getAllMeetings()) {
-			if(meet.getCourseId().equals(courseId)) {
-				kid.addMeeting(meet.getId());
-				//addMeetingToKid(kidId,meet.getId());
-			}
-		}
+//		for(Meeting meet: meetingRepo.getAllMeetings()) {
+//			if(meet.getCourseId().equals(courseId)) {
+//				kid.addMeeting(meet.getId());
+//				//addMeetingToKid(kidId,meet.getId());
+//			}
+//		}
 		kidRepo.save(kid);
 		courseRepo.addKidToCourse(courseId, kidId);
 		return kid;
